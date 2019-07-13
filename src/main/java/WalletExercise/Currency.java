@@ -1,3 +1,5 @@
+package WalletExercise;
+
 public enum Currency {
 
     EURO(230L),GBP(210L),PLN(100L),USD(260L);

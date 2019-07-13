@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class Exercise1 {
+public class StreamJustificationExample {
     public static void main(String[] args) {
         List<Integer> testList = removeEven(generateList(0, 99));
         List<Integer> squaredList = squareList(testList);

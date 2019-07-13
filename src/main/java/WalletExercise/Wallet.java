@@ -1,3 +1,5 @@
+package WalletExercise;
+
 public class Wallet {
     private long money;
     private Currency currency;
