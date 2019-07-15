@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Money {
-    BigDecimal amount;
-    Currency currency;
+    private BigDecimal amount;
+    private Currency currency;
 
     {
         currency = Currency.PLN; // working with one currency at the moment todo multiple currencies

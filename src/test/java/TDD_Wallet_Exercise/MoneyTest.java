@@ -27,8 +27,8 @@ class MoneyTest {
         BigDecimal expectedValue = new BigDecimal(0);
         Currency expectedCurrency = Currency.PLN;
 
-        assertTrue(money.amount.equals(expectedValue));
-        assertEquals(expectedCurrency, money.getCurrency());
+        assertTrue(money.getAmount().equals(expectedValue));
+        assertEquals(money.getCurrency(), expectedCurrency);
     }
 
     @ParameterizedTest
@@ -57,11 +57,11 @@ class MoneyTest {
     @ValueSource(doubles = {20.99, 14.95, 1, Double.MAX_VALUE, Double.MIN_VALUE})
     public void trueIfAddsCorrectAmountOfMoneyToNewMoney(double paramValue) {
         Money expectedMoney = new Money(new BigDecimal(paramValue));
-        System.out.println(expectedMoney);
+//        System.out.println(expectedMoney);
 
         money.add(new Money(new BigDecimal(paramValue)));
 
-        assertEquals(expectedMoney, money);
+        assertEquals(money, expectedMoney);
 
     }
 
@@ -84,8 +84,8 @@ class MoneyTest {
     }
 
     @ParameterizedTest
-    @ValueSource (doubles = {1.00, 2.99, 2134.1235, Double.MAX_VALUE, Double.MIN_VALUE})
-    public void trueIfSubtractsCorrectValue(double paramValue){
+    @ValueSource(doubles = {1.00, 2.99, 2134.1235, Double.MAX_VALUE, Double.MIN_VALUE})
+    public void trueIfSubtractsCorrectValue(double paramValue) {
         money.add(new Money(new BigDecimal(paramValue)));
         Money expectedMoney = new Money(new BigDecimal(0));
 
@@ -95,7 +95,7 @@ class MoneyTest {
         money.subtract(new Money(new BigDecimal(paramValue)));
 //        System.out.println("Money after subtraction: " + money + "\n");
 
-        assertEquals(expectedMoney, money);
+        assertEquals(money,expectedMoney);
     }
 
     @Test
@@ -104,7 +104,7 @@ class MoneyTest {
         BigDecimal[] bigDecArray = new BigDecimal[]
                 {new BigDecimal(1.50), new BigDecimal(20.99), new BigDecimal(1000.56)};
         BigDecimal sumValue = Arrays.stream(bigDecArray).
-                reduce(new BigDecimal(0),(a, b) -> a = a.add(b));
+                reduce(new BigDecimal(0), (a, b) -> a = a.add(b));
         money = new Money(sumValue);
         Money expectedMoney = new Money(new BigDecimal(0));
 
@@ -114,7 +114,7 @@ class MoneyTest {
         }
 
         //Assert
-        assertEquals(expectedMoney, money);
+        assertEquals(money,expectedMoney);
     }
 
 }
