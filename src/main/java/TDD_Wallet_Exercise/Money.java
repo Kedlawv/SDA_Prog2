@@ -1,13 +1,14 @@
 package TDD_Wallet_Exercise;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Money {
     BigDecimal amount;
     Currency currency;
 
     {
-        currency = Currency.PLN;
+        currency = Currency.PLN; // working with one currency at the moment todo multiple currencies
     }
 
     public Money() {
@@ -22,7 +23,44 @@ public class Money {
         return this.amount.compareTo(money.amount) >= 0;
     }
 
-    public void add(Money money){
-        amount = this.amount.add(money.amount);
+    public Money add(Money money){
+
+        this.amount = this.amount.add(money.amount);
+        return this;
+    }
+
+    public Money subtract(Money money) {
+        this.amount = this.amount.subtract(money.amount);
+        return this;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return (this.amount.compareTo(money.amount)) == 0 &&
+                this.currency == money.currency;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, currency);
+    }
+
+    @Override
+    public String toString() {
+        return "Money{" +
+                "amount=" + amount +
+                ", currency=" + currency +
+                '}';
     }
 }
