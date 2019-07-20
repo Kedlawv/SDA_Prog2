@@ -16,7 +16,7 @@ public class Wallet {
         this.money.add(money);
     }
 
-    public void withdraw(Money money){
+    public void withdraw(Money money) throws InsuffitientBalansException{
         this.money.subtract(money);
     }
 

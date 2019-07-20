@@ -29,7 +29,10 @@ public class Money {
         return this;
     }
 
-    public Money subtract(Money money) {
+    public Money subtract(Money money) throws  InsuffitientBalansException{
+        if(!hasEnoughMoney(money)){
+            throw new InsuffitientBalansException();
+        }
         this.amount = this.amount.subtract(money.amount);
         return this;
     }

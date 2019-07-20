@@ -42,7 +42,7 @@ class WalletTest {
 
     @ParameterizedTest
     @ValueSource(doubles = {1, 5, 20.56, 2512351.346346, Double.MAX_VALUE, Double.MIN_VALUE})
-    public void trueIfCorrectMoneyWithdrawn(double paramValue) {
+    public void trueIfCorrectMoneyWithdrawn(double paramValue) throws InsuffitientBalansException {
         //Arrange
         Money moneyToDepositAndWithdraw = new Money(new BigDecimal(paramValue));
         Money expectedMoney = new Money(new BigDecimal(0));
@@ -62,7 +62,15 @@ class WalletTest {
         Money expectedMoney = new Money(new BigDecimal(0));
 
         Arrays.stream(testValues).forEach(d -> wallet.deposit(new Money(new BigDecimal(d))));
-        Arrays.stream(testValues).forEach(d -> wallet.withdraw(new Money(new BigDecimal(d))));
+
+            Arrays.stream(testValues).forEach(d -> {
+                try {
+                    wallet.withdraw(new Money(new BigDecimal(d)));
+                }catch (InsuffitientBalansException e) {
+
+                }
+            });
+
 
         assertEquals(wallet.money, expectedMoney);
 

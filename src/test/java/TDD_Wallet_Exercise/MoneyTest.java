@@ -31,6 +31,25 @@ class MoneyTest {
         assertEquals(money.getCurrency(), expectedCurrency);
     }
 
+    @Test
+    public void trueIfEqualsForSameMoney(){
+        Money money1 = new Money(new BigDecimal(20.99));
+        Money money2 = new Money(new BigDecimal(20.99));
+
+        assertEquals(money1,money2);
+
+    }
+
+    @Test
+    public void falseIfNotEqualsForDifferentMoney(){
+        Money money1 = new Money(new BigDecimal(20.99));
+        Money money2 = new Money(new BigDecimal(19.99));
+
+        assertNotEquals(money1,money2);
+    }
+
+
+
     @ParameterizedTest
     @ValueSource(doubles = {20, 25, 50, 40.33, 5000.23525})
     public void trueIfHasEnoughMoney(double arg) {
@@ -85,7 +104,7 @@ class MoneyTest {
 
     @ParameterizedTest
     @ValueSource(doubles = {1.00, 2.99, 2134.1235, Double.MAX_VALUE, Double.MIN_VALUE})
-    public void trueIfSubtractsCorrectValue(double paramValue) {
+    public void trueIfSubtractsCorrectValue(double paramValue) throws InsuffitientBalansException{
         money.add(new Money(new BigDecimal(paramValue)));
         Money expectedMoney = new Money(new BigDecimal(0));
 
@@ -99,7 +118,7 @@ class MoneyTest {
     }
 
     @Test
-    public void trueIfSubtractsMultipleCorrect() {
+    public void trueIfSubtractsMultipleCorrect() throws InsuffitientBalansException{
         //Arrange
         BigDecimal[] bigDecArray = new BigDecimal[]
                 {new BigDecimal(1.50), new BigDecimal(20.99), new BigDecimal(1000.56)};
@@ -115,6 +134,17 @@ class MoneyTest {
 
         //Assert
         assertEquals(money,expectedMoney);
+    }
+
+    @Test
+    public void throwsExceptionOnNotEnoughMoney(){
+        //Given
+        Money moneyToSubtract = new Money(new BigDecimal(10));
+
+        //When
+
+        //Then
+        assertThrows(InsuffitientBalansException.class, () -> money.subtract(moneyToSubtract));
     }
 
 }
