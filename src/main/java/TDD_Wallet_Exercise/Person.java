@@ -22,12 +22,20 @@ public class Person {
             recipient.receive(money);
         }catch (InsuffitientBalansException e){
             System.out.println("Insufficient funds");
+        } catch (NotMatchingCurrencyException e) {
+            System.out.println("Currencies do not match");
+            e.printStackTrace();
         }
 
 
     }
 
     public void receive(Money money){
-        wallet.deposit(money);
+        try {
+            wallet.deposit(money);
+        } catch (NotMatchingCurrencyException e) {
+            System.out.println("Currencies do not match");
+            e.printStackTrace();
+        }
     }
 }

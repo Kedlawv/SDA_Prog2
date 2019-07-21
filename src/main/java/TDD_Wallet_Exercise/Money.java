@@ -7,29 +7,36 @@ public class Money {
     private BigDecimal amount;
     private Currency currency;
 
-    {
-        currency = Currency.PLN; // working with one currency at the moment todo multiple currencies
-    }
 
-    public Money() {
-        amount = new BigDecimal(0);
-    }
-
-    public Money(BigDecimal amount){
+    public Money(BigDecimal amount,Currency currency){
         this.amount = amount;
+        this.currency = currency;
     }
 
-    public Boolean hasEnoughMoney(Money money) {
+    public Boolean hasEnoughMoney(Money money) throws NotMatchingCurrencyException {
+        checkCurrency(money);
         return this.amount.compareTo(money.amount) >= 0;
     }
 
-    public Money add(Money money){
+    private void checkCurrency(Money money) throws NotMatchingCurrencyException {
+        if(!(this.currency == money.currency)) {
+            throw new NotMatchingCurrencyException();
+        }
+    }
+
+    public Money add(Money money) throws NotMatchingCurrencyException {
+
+        checkCurrency(money);
 
         this.amount = this.amount.add(money.amount);
+
+
         return this;
     }
 
-    public Money subtract(Money money) throws  InsuffitientBalansException{
+    public Money subtract(Money money) throws InsuffitientBalansException, NotMatchingCurrencyException {
+        checkCurrency(money);
+
         if(!hasEnoughMoney(money)){
             throw new InsuffitientBalansException();
         }

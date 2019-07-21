@@ -32,22 +32,24 @@ class PersonTest {
     }
 
     @Test
-    public void trueIfPayAddsCorrect(){
-        Money expectedMoney = new Money(new BigDecimal(20.56));
+    public void trueIfPayAddsCorrect() throws NotMatchingCurrencyException {
+        Money expectedMoney = new Money(new BigDecimal(20.56),Currency.PLN);
+
+        personOne.wallet.deposit(expectedMoney);
         personOne.pay(personTwo,expectedMoney);
 
-        assertEquals(personTwo.wallet.getBalance(), expectedMoney);
+        assertEquals(expectedMoney,personTwo.wallet.moneyMap.get(Currency.PLN));
     }
 
     @Test
-    public void trueIfSubtractsCorrectFromPayer(){
-        Money startingMoney = new Money(new BigDecimal(11.99));
-        Money expectedMoney = new Money(BigDecimal.ZERO);
+    public void trueIfSubtractsCorrectFromPayer() throws NotMatchingCurrencyException {
+        Money startingMoney = new Money(new BigDecimal(11.99),Currency.PLN);
+        Money expectedMoney = new Money(BigDecimal.ZERO,Currency.PLN);
         personOne.wallet.deposit(startingMoney);
 
         personOne.pay(personTwo,startingMoney);
 
-        assertEquals(expectedMoney, personOne.wallet.getBalance());
+        assertEquals(expectedMoney, personOne.wallet.moneyMap.get(Currency.PLN));
 
     }
 
