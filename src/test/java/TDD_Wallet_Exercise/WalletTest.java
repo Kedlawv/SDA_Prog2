@@ -16,6 +16,7 @@ class WalletTest {
     double[] testValues = new double[]{1, 5, 20.56, 2512351.346346, Double.MAX_VALUE, Double.MIN_VALUE,
             2.95, 11234};
 
+
     @BeforeEach
     public void createEmptyWallet() {
         wallet = new Wallet();
