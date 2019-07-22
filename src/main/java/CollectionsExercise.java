@@ -1,3 +1,6 @@
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,11 +34,32 @@ public class CollectionsExercise {
         System.out.println(getPersonByPesel("85063077831",peopleMap));
         System.out.println(getPeselsByName("Sara Lewandowska",peopleRepeatMap));
 
+
+        System.out.println("\n_____________Nazwy Kraju | Kod Kraju__________________");
+        Path krajKodPath = Paths.get("kraje.txt");
+
+        BiMap<String,String> krajKodBiDir = HashBiMap.create();
+        krajKodBiDir.putAll(readInPairFromFile(krajKodPath));
+
+        System.out.println(krajKodBiDir.get("Poland"));
+        System.out.println(krajKodBiDir.inverse().get("GB"));
+
+
         //todo finish homework
 
 
 
 
+    }
+
+    public static Map<String,String> readInPairFromFile(Path path) throws IOException {
+        Map<String,String> pairsMap;
+
+        pairsMap = Files.lines(path)
+                .map(l-> l.split(" "))
+                .collect(Collectors.toMap(t -> t[0], t->t[1]));
+
+        return pairsMap;
     }
 
     public static Map<String,String> getPeselsByName(String name, Map<String,String> personMap){
