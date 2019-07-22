@@ -8,11 +8,10 @@ public class RegexExerciseMain {
         Scanner scanner = new Scanner(System.in);
         String input;
         String[] splitInput = new String[0];
+
         String regexNameSurname = new String("([A-Z][a-z]*) ([A-Z][a-z]*)");
         String regexArbitrary = new String("([A-Z][a-z]* *){2,}");
         String regexSingleName = new String("([A-Z][a-z]*)");
-        // todo implement regex for any number of names
-        // ([A-Z][a-z])+ // like this ?
 
         System.out.print("Podaj imie i nazwisko:");
         input = scanner.nextLine();
@@ -63,13 +62,22 @@ public class RegexExerciseMain {
             }
         }
 
-        System.out.println(namesList);
-        System.out.println("First Name: " + firstName + " ");
-        System.out.print("Middle name(s): ");
-        for (String middleName : middleNames) {
-            System.out.print(middleName + " ");
+        if(namesList.size() == 2){
+            firstName = namesList.get(0);
+            surname = namesList.get(1);
         }
-        System.out.println();
+
+        System.out.println(namesList);
+        System.out.println("First Name: " + firstName);
+
+        if(!middleNames.isEmpty()) {
+            System.out.print("Middle name(s): ");
+            for (String middleName : middleNames) {
+                System.out.print(middleName + " ");
+            }
+            System.out.println();
+        }
+
         System.out.println("Surname: " + surname);
 
     }
@@ -86,3 +94,5 @@ public class RegexExerciseMain {
 
 
 }
+
+
