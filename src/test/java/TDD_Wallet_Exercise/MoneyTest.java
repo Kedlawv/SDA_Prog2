@@ -40,7 +40,7 @@ class MoneyTest {
 
 
     @ParameterizedTest
-    @ValueSource(doubles = {20, 25, 50, 40.33, 5000.23525})
+    @ValueSource(doubles = {20, 20.99, 25, 50, 40.33, 5000.23525})
     public void trueIfHasEnoughMoney(double arg)
             throws NotMatchingCurrencyException {
         pLNmoney.add(new Money(new BigDecimal(arg),Currency.PLN));

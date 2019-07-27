@@ -1,6 +1,7 @@
 package TDD_Wallet_Exercise;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public class Money {
@@ -9,7 +10,7 @@ public class Money {
 
 
     public Money(BigDecimal amount,Currency currency){
-        this.amount = amount;
+        this.amount = amount.setScale(2, RoundingMode.HALF_UP);
         this.currency = currency;
     }
 

@@ -3,6 +3,7 @@ package TDD_Wallet_Exercise;
 public class Person {
 
     Wallet wallet;
+    //todo check "none value"
 
     public Person(){
         wallet = new Wallet();
