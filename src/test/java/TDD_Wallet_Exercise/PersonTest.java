@@ -13,8 +13,8 @@ class PersonTest {
 
     @BeforeEach
     public void createPerson(){
-        personOne = new Person();
-        personTwo = new Person();
+        personOne = new Person("John");
+        personTwo = new Person("Anna");
     }
 
     @Test
@@ -52,5 +52,6 @@ class PersonTest {
         assertEquals(expectedMoney, personOne.wallet.moneyMap.get(Currency.PLN));
 
     }
+
 
 }

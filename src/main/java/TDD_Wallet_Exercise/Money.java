@@ -19,7 +19,7 @@ public class Money {
         return this.amount.compareTo(money.amount) >= 0;
     }
 
-    private void checkCurrency(Money money) throws NotMatchingCurrencyException {
+    void checkCurrency(Money money) throws NotMatchingCurrencyException {
         if(!(this.currency == money.currency)) {
             throw new NotMatchingCurrencyException();
         }

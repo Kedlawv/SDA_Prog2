@@ -1,12 +1,23 @@
 package TDD_Wallet_Exercise;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
 public class Person {
 
     Wallet wallet;
-    //todo check "none value"
+    String name;
+    List<String> items;
+    List<Offer> forsale;
+    List<Offer> toBuy;
+    private static Logger LOGGER = LoggerFactory.getLogger(Person.class);
+    //todo check "none value method"
 
-    public Person(){
+    public Person(String name){
         wallet = new Wallet();
+        this.name = name;
     }
 
     public boolean hasWallet() {
@@ -22,9 +33,9 @@ public class Person {
             this.wallet.withdraw(money);
             recipient.receive(money);
         }catch (InsuffitientBalansException e){
-            System.out.println("Insufficient funds");
+            LOGGER.error("Insufficient funds");
         } catch (NotMatchingCurrencyException e) {
-            System.out.println("Currencies do not match");
+            LOGGER.error("Currencies do not match");
             e.printStackTrace();
         }
 
@@ -34,8 +45,9 @@ public class Person {
     public void receive(Money money){
         try {
             wallet.deposit(money);
+            LOGGER.info("Deposited {} id: {}", money, this);
         } catch (NotMatchingCurrencyException e) {
-            System.out.println("Currencies do not match");
+            LOGGER.error("Currencies do not match");
             e.printStackTrace();
         }
     }

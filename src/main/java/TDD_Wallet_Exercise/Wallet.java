@@ -1,11 +1,16 @@
 package TDD_Wallet_Exercise;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Wallet {
 
+    Logger LOGGER = LoggerFactory.getLogger(Wallet.class);
     Map<Currency,Money> moneyMap;
 
     {
@@ -26,9 +31,12 @@ public class Wallet {
     public void withdraw(Money money)
             throws InsuffitientBalansException, NotMatchingCurrencyException {
 
-        Money defaultMoney = new Money(BigDecimal.ZERO,money.getCurrency());
-        this.moneyMap.getOrDefault(money.getCurrency(),defaultMoney).subtract(money);
-
+        if(moneyMap.containsKey(money.getCurrency())) {
+            this.moneyMap.get(money.getCurrency()).subtract(money);
+        }else{
+            LOGGER.error("Withdraw() throw");
+            throw new InsuffitientBalansException();
+        }
     }
 
     public Map getBalance() {
